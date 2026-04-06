@@ -10,11 +10,7 @@ import ti4.message.MessageHelper;
 class CheckStoredValue extends GameStateSubcommand {
 
     public CheckStoredValue() {
-        super(
-                "check_stored_value",
-                "Check a stored value.",
-                false,
-                false);
+        super("check_stored_value", "Check a stored value.", false, false);
         addOption(OptionType.STRING, "stored_key", "Key to the value", true, false);
         addOption(OptionType.STRING, Constants.GAME_NAME, "Game to check", false, true);
     }
