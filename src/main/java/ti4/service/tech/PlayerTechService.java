@@ -765,11 +765,18 @@ public class PlayerTechService {
         }
         CommanderUnlockCheckService.checkPlayer(player, "jolnar", "nekro", "mirveda", "dihmohn");
 
-        if (!isStrat || game.isComponentAction() || !"action".equalsIgnoreCase(game.getPhaseOfGame())) {
-            MessageHelper.sendMessageToChannel(player.getCorrectChannel(), message.toString());
+        if (game.isTwilightsFallMode()
+                && game.getRound() == 1
+                && player.getSCs().isEmpty()
+                && player.getPlanets().size() < 4) {
+            // dont send a message for inaugural splice picks
         } else {
-            ButtonHelper.sendMessageToRightStratThread(player, game, message.toString(), "technology");
-            TechSummariesMetadataManager.addTech(game, player, techID, false);
+            if (!isStrat || game.isComponentAction() || !"action".equalsIgnoreCase(game.getPhaseOfGame())) {
+                MessageHelper.sendMessageToChannel(player.getCorrectChannel(), message.toString());
+            } else {
+                ButtonHelper.sendMessageToRightStratThread(player, game, message.toString(), "technology");
+                TechSummariesMetadataManager.addTech(game, player, techID, false);
+            }
         }
         if (paymentRequired) {
             payForTech(game, player, event, techID, paymentType);

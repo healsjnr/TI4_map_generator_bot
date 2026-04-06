@@ -31,7 +31,7 @@ class ListStoredValues extends GameStateSubcommand {
 
         List<String> keys = new LinkedList<String>();
         for (int i = 1; i <= NUM_OF_KEY_OPTIONS; i++) {
-            String key = event.getOption("stored_key" + i, "", OptionMapping::getAsString);
+            String key = event.getOption("stored_key_" + i, "", OptionMapping::getAsString);
             if (!key.isBlank()) {
                 keys.add(key);
             }

@@ -31,6 +31,7 @@ import ti4.message.logging.LogOrigin;
 import ti4.model.MapTemplateModel;
 import ti4.model.MapTemplateModel.MapTemplateTile;
 import ti4.service.draft.MantisMapBuildContext.PlayerTiles;
+import ti4.service.explore.AddFrontierTokensService;
 import ti4.spring.jda.JdaService;
 
 @UtilityClass
@@ -307,6 +308,20 @@ public class MantisMapBuildService {
                     }
                 });
             }
+            Game game = mapBuildContext.game();
+            AddFrontierTokensService.addFrontierTokens(null, game);
+            if (game.getTileByPosition("tl") == null) {
+                game.setTile(new Tile("82a", "tl"));
+            } else {
+                if (game.getTileByPosition("tr") == null) {
+                    game.setTile(new Tile("82a", "tr"));
+                } else {
+                    if (game.getTileByPosition("bl") == null) {
+                        game.setTile(new Tile("82a", "bl"));
+                    }
+                }
+            }
+            game.setShowMapSetup(false);
             // Update the main game map
             ButtonHelper.updateMap(mapBuildContext.game(), event, "Mantis Map Build Completed");
             // Do any post-build work

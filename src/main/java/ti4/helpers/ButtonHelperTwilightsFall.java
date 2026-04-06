@@ -48,6 +48,7 @@ import ti4.service.button.ReactionService;
 import ti4.service.draft.MantisMapBuildContext;
 import ti4.service.draft.MantisMapBuildService;
 import ti4.service.emoji.TechEmojis;
+import ti4.service.explore.AddFrontierTokensService;
 import ti4.service.franken.FrankenDraftBagService;
 import ti4.service.franken.FrankenHomeService;
 import ti4.service.franken.FrankenMapBuildContextHelper;
@@ -269,6 +270,19 @@ public final class ButtonHelperTwilightsFall {
         } catch (Exception e) {
             BotLogger.error(new LogOrigin(event, game), "err", e);
         }
+        AddFrontierTokensService.addFrontierTokens(null, game);
+        if (game.getTileByPosition("tl") == null) {
+            game.setTile(new Tile("82a", "tl"));
+        } else {
+            if (game.getTileByPosition("tr") == null) {
+                game.setTile(new Tile("82a", "tr"));
+            } else {
+                if (game.getTileByPosition("bl") == null) {
+                    game.setTile(new Tile("82a", "bl"));
+                }
+            }
+        }
+        game.setShowMapSetup(false);
     }
 
     @ButtonHandler("startFrankenMantisBuild")
@@ -600,18 +614,18 @@ public final class ButtonHelperTwilightsFall {
         if (player.hasUnit("blacktf_mech")) {
             int numMechs = 0;
             for (Tile tile : ButtonHelper.getTilesOfPlayersSpecificUnits(game, player, UnitType.Mech)) {
-                boolean validPos = false;
-                for (String pos : FoWHelper.getAdjacentTiles(game, tile.getPosition(), player, false, true)) {
-                    if (FoWHelper.otherPlayersHaveUnitsInSystem(player, game.getTileByPosition(pos), game)) {
-                        validPos = true;
-                        break;
-                    }
+                // boolean validPos = false;
+                // for (String pos : FoWHelper.getAdjacentTiles(game, tile.getPosition(), player, false, true)) {
+                //     if (FoWHelper.otherPlayersHaveUnitsInSystem(player, game.getTileByPosition(pos), game)) {
+                //         validPos = true;
+                //         break;
+                //     }
+                // }
+                // if (validPos) {
+                for (UnitHolder uH : tile.getUnitHolders().values()) {
+                    numMechs += uH.getUnitCount(UnitType.Mech, player);
                 }
-                if (validPos) {
-                    for (UnitHolder uH : tile.getUnitHolders().values()) {
-                        numMechs += uH.getUnitCount(UnitType.Mech, player);
-                    }
-                }
+                // }
             }
             if (numMechs > 0) {
                 AddUnitService.addUnits(null, player.getNomboxTile(), game, player.getColor(), numMechs + " infantry");

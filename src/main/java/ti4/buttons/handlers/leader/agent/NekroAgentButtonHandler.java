@@ -36,7 +36,7 @@ class NekroAgentButtonHandler {
                 p2.getRepresentationUnfogged() + " use buttons to discard",
                 ActionCardHelper.getDiscardActionCardButtons(p2, false));
 
-        List<Button> buttons = ButtonHelper.getLoseCCButtons(player);
+        List<Button> buttons = ButtonHelper.getLoseCCButtons(p2);
         String message2 = p2.getRepresentationUnfogged() + "! Your current command tokens are "
                 + p2.getCCRepresentation() + ". Use buttons to lose tokens.";
         MessageHelper.sendMessageToChannelWithButtons(p2.getCorrectChannel(), message2, buttons);
