@@ -30,7 +30,7 @@ public class BothelperCommand implements ParentCommand {
                     new EditTrackRecord(),
                     new SetGameLimit(),
                     new SetStatsTrackedUser(),
-                    new CheckStoredValue(),
+                    new ListStoredValues(),
                     new EditStoredValue(),
                     new ListSlashCommandsUsed(),
                     new ReserveGame(),
