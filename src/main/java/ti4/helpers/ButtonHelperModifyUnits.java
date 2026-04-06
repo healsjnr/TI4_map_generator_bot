@@ -2372,7 +2372,7 @@ public final class ButtonHelperModifyUnits {
         }
         String msg = player.getRepresentation() + ", please choose which of your ships in "
                 + tile.getRepresentationForButtons(game, player)
-                + " will be affected by _Gravleash Maneuvers_.";
+                + " will be affected by _Gravleash Maneuvers_. This is not strictly necessary -- if left unchosen, the bot will give it to the ship with the most dice (and then best combat value if most dice is tied).";
         MessageHelper.sendMessageToChannelWithButtons(event.getMessageChannel(), msg, buttons);
     }
 

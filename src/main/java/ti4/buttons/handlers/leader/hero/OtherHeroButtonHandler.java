@@ -263,7 +263,10 @@ class OtherHeroButtonHandler {
         if (captureUnitHolder != null && spaceUnitHolder != null) {
             for (UnitKey key : captureUnitHolder.getUnitKeys()) {
                 Player player_ = game.getPlayerFromColorOrFaction(key.getColor());
-                if (player_ != player) {
+                if (player_ != player || player_ == null) {
+                    continue;
+                }
+                if (!player_.getUnitFromUnitKey(key).getIsShip()) {
                     continue;
                 }
                 int amt = captureUnitHolder.getUnitCount(key);

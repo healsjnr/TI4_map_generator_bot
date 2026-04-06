@@ -143,6 +143,10 @@ public class MiltyService {
         } catch (Exception e) {
             // Ignore
         }
+        for (String player : draftManager.getPlayers()) {
+            Player p = game.getPlayer(player);
+            p.getCardsInfoThread();
+        }
 
         if (specs.presetSlices != null) {
             MessageHelper.sendMessageToChannel(
@@ -162,6 +166,7 @@ public class MiltyService {
                     MiltyDraftDisplayService.repostDraftInformation(draftManager, game);
                     for (String player : draftManager.getPlayers()) {
                         Player p = game.getPlayer(player);
+                        game.setStoredValue(p.getUserID() + "queuedMiltyPick", "");
                         if (p != null
                                 && p != draftManager.getCurrentDraftPlayer(game)
                                 && p.getCardsInfoThread() != null) {

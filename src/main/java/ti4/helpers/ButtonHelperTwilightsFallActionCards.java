@@ -429,6 +429,7 @@ public final class ButtonHelperTwilightsFallActionCards {
         return buttons;
     }
 
+    @ButtonHandler("transferSingularity")
     public static void transferSingularity(Game game, Player player, ButtonInteractionEvent event, String buttonID) {
         Player p2 = game.getPlayerFromColorOrFaction(buttonID.split("_")[1]);
         String ability1 = buttonID.split("_")[2];

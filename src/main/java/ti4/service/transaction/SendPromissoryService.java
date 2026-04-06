@@ -96,7 +96,7 @@ public class SendPromissoryService {
             Game game, Player sender, Player receiver, PromissoryNoteModel model, boolean reportLost) {
         String reportMsgFmt = sender.getRepresentation() + " sent %s of " + receiver.getRepresentation() + ".";
         String reportMsg;
-        if (model.isPlayedDirectlyToPlayArea()) {
+        if (model.isPlayedDirectlyToPlayArea() && !sender.isPlayerMemberOfAlliance(receiver)) {
             reportMsg = String.format(reportMsgFmt, model.getNameRepresentation() + " directly to the play area");
         } else {
             reportMsg = String.format(reportMsgFmt, "a promissory note to the hand");
