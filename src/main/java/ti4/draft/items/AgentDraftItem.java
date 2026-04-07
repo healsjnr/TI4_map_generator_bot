@@ -108,13 +108,16 @@ public class AgentDraftItem extends DraftItem {
     private static List<DraftItem> buildAllItems(List<FactionModel> factions, Game game) {
         List<DraftItem> allItems = new ArrayList<>();
         Map<String, LeaderModel> allLeaders = Mapper.getLeaders();
+        String[] results = PatternHelper.FIN_SEPERATOR_PATTERN.split(game.getStoredValue("bannedLeaders"));
         if (game.isTwilightsFallMode()) {
             DeckModel deck = Mapper.getDeck("tf_genome");
             for (String leader : deck.getNewShuffledDeck()) {
+                if (Arrays.asList(results).contains(leader)) {
+                    continue;
+                }
                 allItems.add(generate(DraftCategory.AGENT, leader));
             }
         } else {
-            String[] results = PatternHelper.FIN_SEPERATOR_PATTERN.split(game.getStoredValue("bannedLeaders"));
             for (FactionModel faction : factions) {
                 List<String> agents = faction.getLeaders();
                 agents.removeIf((String leader) ->

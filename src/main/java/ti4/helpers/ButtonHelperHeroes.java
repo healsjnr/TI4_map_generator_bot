@@ -1,8 +1,6 @@
 package ti4.helpers;
 
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
-import static org.apache.commons.lang3.StringUtils.substringAfter;
-import static org.apache.commons.lang3.StringUtils.substringBefore;
+import static org.apache.commons.lang3.StringUtils.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -1785,6 +1783,7 @@ public final class ButtonHelperHeroes {
                         }
                     }
                 }
+                ButtonHelper.checkFleetAndCapacity(p2, game, tile);
             }
             if (!content) {
                 message.append("No enemy units found in this system.\n");
@@ -1968,6 +1967,9 @@ public final class ButtonHelperHeroes {
             }
         }
         ButtonHelper.deleteTheOneButton(event);
+        for (Player p2 : game.getRealPlayers()) {
+            ButtonHelper.checkFleetAndCapacity(p2, game, tile);
+        }
     }
 
     public static List<Button> getEmpyHeroButtons(Player player, Game game) {

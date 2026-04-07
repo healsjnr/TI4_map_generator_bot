@@ -34,6 +34,7 @@ import ti4.message.MessageHelper;
 import ti4.message.logging.BotLogger;
 import ti4.model.StrategyCardModel;
 import ti4.model.metadata.AutoPingMetadataManager;
+import ti4.service.agenda.IsPlayerElectedService;
 import ti4.service.breakthrough.MindsieveService;
 import ti4.service.emoji.CardEmojis;
 import ti4.service.emoji.ExploreEmojis;
@@ -337,6 +338,16 @@ public class PlayStrategyCardService {
                         + ", your _Enervate_ puppet has played a strategy card, so you have been marked as following for free. ";
                 MessageHelper.sendMessageToChannel(obsidian.getCorrectChannel(), enervateMsg);
                 obsidian.addFollowedSC(scToPlay, event);
+            }
+        }
+        if (scModel.usesAutomationForSCID("pok7technology") && !winnuHero && !isOverrule) {
+            for (Player player3 : game.getRealPlayers()) {
+                if (IsPlayerElectedService.isPlayerElected(game, player3, "minister_sciences")) {
+                    MessageHelper.sendMessageToChannel(
+                            player3.getCardsInfoThread(),
+                            player3.getRepresentation()
+                                    + ", you have been elected as Minister of Sciences, so you do not need to pay resources to research off of technology. ");
+                }
             }
         }
 

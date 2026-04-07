@@ -82,15 +82,16 @@ public class TechDraftItem extends DraftItem {
 
     private static List<DraftItem> buildAllItems(List<FactionModel> factions, Game game) {
         List<DraftItem> allItems = new ArrayList<>();
+        String[] results = PatternHelper.FIN_SEPERATOR_PATTERN.split(game.getStoredValue("bannedTechs"));
         if (game.isTwilightsFallMode()) {
             for (TechnologyModel tech : Mapper.getTechs().values()) {
                 if (tech.getSource() == ComponentSource.twilights_fall
-                        && tech.getFaction().isPresent()) {
+                        && tech.getFaction().isPresent()
+                        && !Arrays.asList(results).contains(tech.getID())) {
                     allItems.add(generate(DraftCategory.TECH, tech.getID()));
                 }
             }
         } else {
-            String[] results = PatternHelper.FIN_SEPERATOR_PATTERN.split(game.getStoredValue("bannedTechs"));
             for (FactionModel faction : factions) {
                 for (var tech : faction.getFactionTech()) {
                     if (Arrays.asList(results).contains(tech)) {
