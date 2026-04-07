@@ -1,8 +1,6 @@
 package ti4.helpers;
 
-import static org.apache.commons.lang3.StringUtils.capitalize;
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
-import static org.apache.commons.lang3.StringUtils.substringBetween;
+import static org.apache.commons.lang3.StringUtils.*;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -3786,13 +3784,17 @@ public final class ButtonHelperFactionSpecific {
         MessageHelper.sendMessageToChannelWithButtons(
                 event.getMessageChannel(),
                 player.getFactionEmojiOrColor() + ", please choose the system you wish to place the " + type
-                        + " wormhole in.",
+                        + " wormhole in. Reminder that wormholes cannot be placed in entropic scars (well, officially they're discarded when you try).",
                 chooseTileButtons);
         event.getMessageChannel().deleteMessageById(origMessageId).queue(Consumers.nop(), BotLogger::catchRestError);
     }
 
     private static boolean isTileCreussIFFSuitable(Game game, Player player, Tile tile) {
         if (tile == null || tile.getTileModel() != null && tile.getTileModel().isHyperlane()) {
+            return false;
+        }
+
+        if (tile.isScar(game)) {
             return false;
         }
 

@@ -436,6 +436,7 @@ public class ListTechService {
                 .filter(tech -> !player.hasTech(tech.getAlias()) || deepwroughthero)
                 .filter(tech -> tech.getFaction().isEmpty()
                         || "".equalsIgnoreCase(tech.getFaction().get())
+                        || (deepwroughthero && player.hasTech(tech.getAlias()))
                         || player.getNotResearchedFactionTechs().contains(tech.getAlias()))
                 .toList();
 

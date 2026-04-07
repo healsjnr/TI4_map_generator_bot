@@ -294,7 +294,7 @@ public class PlayerTechService {
                                 + " is destroying a unit that sustained damage by using _Krovoz Strike Teams_. The owner should destroy the unit with the assign hits button.");
             }
             case "absol_nm" -> { // Absol's Neural Motivator
-                deleteIfButtonEvent(event);
+                ButtonHelper.deleteTheOneButton(event);
                 Button draw2ACButton = Buttons.gray(
                         player.getFinsFactionCheckerPrefix() + "draw2 AC",
                         "Draw 2 Action Cards",
